@@ -15,7 +15,7 @@ foreach($file in $animatedFiles){
 $compiler=Join-Path $env:SystemRoot 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
 if(-not(Test-Path -LiteralPath $compiler)){throw '.NET Framework C# compiler not found'}
 Copy-Item -LiteralPath (Join-Path $root 'assets\windows-codex.ico') -Destination (Join-Path $destination 'assets\windows-codex.ico') -Force
-& $compiler /nologo /target:winexe /optimize+ /reference:System.Windows.Forms.dll ('/win32icon:'+(Join-Path $root 'assets\windows-codex.ico')) ('/out:'+(Join-Path $destination 'CodexStartup.exe')) (Join-Path $root 'windows\Launcher.cs')
+& $compiler /nologo /codepage:65001 /target:winexe /optimize+ /reference:System.Windows.Forms.dll ('/win32icon:'+(Join-Path $root 'assets\windows-codex.ico')) ('/out:'+(Join-Path $destination 'CodexStartup.exe')) (Join-Path $root 'windows\Launcher.cs')
 if($LASTEXITCODE -ne 0){throw 'Windows launcher build failed'}
 Copy-Item -LiteralPath (Join-Path $root 'docs\windows.md') -Destination (Join-Path $destination '使用说明.md') -Force
 Copy-Item -LiteralPath (Join-Path $root 'docs\references.md') -Destination (Join-Path $destination 'references.md') -Force

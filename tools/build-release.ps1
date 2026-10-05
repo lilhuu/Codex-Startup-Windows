@@ -14,7 +14,7 @@ if(Test-Path -LiteralPath $payload){Remove-Item -LiteralPath $payload -Force}
 [IO.Compression.ZipFile]::CreateFromDirectory($runtime,$payload,[IO.Compression.CompressionLevel]::Optimal,$false)
 $compiler=Join-Path $env:SystemRoot 'Microsoft.NET/Framework64/v4.0.30319/csc.exe'
 $installer=Join-Path $destination ('CodexStartupWindows-Setup-'+$project.version+'.exe')
-& $compiler /nologo /target:winexe /optimize+ /reference:System.Windows.Forms.dll /reference:System.Drawing.dll /reference:System.IO.Compression.dll /reference:System.IO.Compression.FileSystem.dll /reference:System.Web.Extensions.dll /reference:Microsoft.CSharp.dll ('/win32icon:'+(Join-Path $root 'assets/windows-codex.ico')) ('/resource:'+$payload+',payload.zip') ('/out:'+$installer) (Join-Path $root 'windows/InstallCore.cs') (Join-Path $root 'windows/InstallIntegration.cs') (Join-Path $root 'windows/Setup.cs')
+& $compiler /nologo /codepage:65001 /target:winexe /optimize+ /reference:System.Windows.Forms.dll /reference:System.Drawing.dll /reference:System.IO.Compression.dll /reference:System.IO.Compression.FileSystem.dll /reference:System.Web.Extensions.dll /reference:Microsoft.CSharp.dll ('/win32icon:'+(Join-Path $root 'assets/windows-codex.ico')) ('/resource:'+$payload+',payload.zip') ('/out:'+$installer) (Join-Path $root 'windows/InstallCore.cs') (Join-Path $root 'windows/InstallIntegration.cs') (Join-Path $root 'windows/Setup.cs')
 if($LASTEXITCODE -ne 0){throw 'Setup build failed'}
 $portable=Join-Path $destination ('CodexStartupWindows-Portable-'+$project.version+'.zip')
 if(Test-Path -LiteralPath $portable){Remove-Item -LiteralPath $portable -Force}
