@@ -19,7 +19,12 @@ public static class InstallIntegration {
    link=shell.CreateShortcut(file);
    if(File.Exists(file)&&!String.Equals((string)link.TargetPath,target,StringComparison.OrdinalIgnoreCase))throw new IOException("已有同名快捷方式指向其他程序："+file);
    if(File.Exists(file)&&!Owned(link,target,settings))return;
-   link.TargetPath=target;link.WorkingDirectory=Path.GetDirectoryName(target);link.Arguments=settings?"--settings":"";link.IconLocation=target+",0";link.Description=settings?"选择头像、背景图片、动图和启动文字":"启动官方 Codex 并播放自定义动画";link.Save();
+   link.TargetPath=target;
+   link.WorkingDirectory=Path.GetDirectoryName(target);
+   link.Arguments=settings?"--settings":"";
+   link.IconLocation=target+",0";
+   link.Description=settings?"选择头像、背景图片、动图和启动文字":"启动官方 Codex 并播放自定义动画";
+   link.Save();
   }finally{if(link!=null)Marshal.FinalReleaseComObject(link);Marshal.FinalReleaseComObject(shell);}
  }
  static void RegisterUnsafe(string root,string desktop,string menu,string registryPath,Action<string> beforeWrite){
