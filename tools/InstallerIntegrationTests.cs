@@ -19,6 +19,8 @@ static class InstallerIntegrationTests {
    using(var payload=assembly.GetManifestResourceStream("payload.zip")){Check(payload!=null,"installer contains embedded runtime ZIP");InstallCore.Install(payload,root,null,Path.GetFullPath(args[0]));}
    Check(File.Exists(Path.Combine(root,"CodexStartup.exe"))&&File.Exists(Path.Combine(root,"image-settings.js")),"real embedded runtime installs into Unicode path");
    Check(File.Exists(Path.Combine(root,"CodexStartupSetup.exe")),"installed setup retained for uninstall");
+   Console.WriteLine("Diagnostic shortcut path: "+Path.Combine(desktop,"Codex Startup Windows.lnk"));
+   Console.WriteLine("Diagnostic target path: "+Path.Combine(root,"CodexStartup.exe"));
    InstallIntegration.Register(root,desktop,menu,registry);
    byte[] originalLauncher=File.ReadAllBytes(Path.Combine(root,"CodexStartup.exe")),originalLink=File.ReadAllBytes(Path.Combine(desktop,"Codex Startup Windows.lnk"));
    bool failed=false;
