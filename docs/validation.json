@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-05",
+  "release": "1.0.0",
+  "localPlatform": "Windows x64",
+  "officialPackageVersion": "26.930.4958.0",
+  "officialAppVersion": "26.930.41038",
+  "nodeTestCount": 17,
+  "installerCoreCheckCount": 23,
+  "embeddedInstallerIntegrationCheckCount": 14,
+  "actualWindowCheckCount": 9,
+  "allChecksPassed": true,
+  "staticReview": "passed; no remaining critical or important findings",
+  "installerSigned": false,
+  "remoteCIExecuted": false,
+  "otherMachinesTested": false,
+  "windowResults": "screenshots/windows-verification.json"
+}

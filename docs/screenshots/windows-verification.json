@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-05",
+  "profile": "diagnostic browser directory; account state may be shared",
+  "checks": [
+    "fresh settings entry opens with generic default text",
+    "full animation completes and default wallpaper remains",
+    "settings launcher reuses verified running session",
+    "custom avatar, static artwork, contours and welcome text persist",
+    "custom GIF persists and remains a GIF wallpaper",
+    "Escape skips the saved animation",
+    "restore defaults resets custom text and image",
+    "restore appearance removes the extension and wallpaper",
+    "settings launcher opens a dialog during an active startup animation"
+  ]
+}

@@ -1,0 +1,10 @@
+.build/
+dist/
+release/
+.codegraph/
+*.log
+*.tmp
+.env
+.env.*
+.vscode/
+.idea/

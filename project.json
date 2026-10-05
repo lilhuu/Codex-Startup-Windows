@@ -1,0 +1,7 @@
+{
+  "name": "Codex Startup Windows",
+  "version": "1.0.0",
+  "platform": "Windows x64",
+  "upstream": "https://github.com/M1ddle0/codex-startup-animation",
+  "upstreamCommit": "52bf7c7377663c42aad0730ab4868a48c1e1d2be"
+}
