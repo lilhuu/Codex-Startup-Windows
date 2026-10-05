@@ -2,6 +2,8 @@
 
 为 Windows Codex 加上可自定义的启动动画和透明背景。双击一个安装 EXE，即可创建启动、图片设置和卸载入口。
 
+**[下载安装 EXE](https://github.com/lilhuu/Codex-Startup-Windows/releases/latest) · [源码仓库](https://github.com/lilhuu/Codex-Startup-Windows)**
+
 基于 [M1ddle0/codex-startup-animation](https://github.com/M1ddle0/codex-startup-animation) 改编。动画在本机官方 Codex 窗口中播放，本项目是非官方外部启动器。
 
 ![启动动画](docs/screenshots/startup.png)
@@ -13,7 +15,7 @@
 3. 点击“启动并选择图片”，更换头像、背景和文字，点击“保存并预览”。
 4. 以后从桌面 **Codex Startup Windows** 启动，或从 **Codex Startup Windows 设置** 更换画面。
 
-完整操作见 [使用说明](docs/windows.md)，遇到问题可查看 [常见问题](docs/faq.md)。源码仓库发布后，可将安装 EXE、便携 ZIP 和 SHA256 校验文件作为 GitHub Release 附件。
+完整操作见 [使用说明](docs/windows.md)，遇到问题可查看 [常见问题](docs/faq.md)。安装 EXE、便携 ZIP、源码 ZIP 和 SHA256 校验文件在 [GitHub Releases](https://github.com/lilhuu/Codex-Startup-Windows/releases) 下载。
 
 ## 你可以更换什么
 
@@ -93,7 +95,7 @@ docs/                         使用、验证、来源说明
 .github/workflows/            Windows 构建与测试
 ```
 
-项目尚未发布到 GitHub。本地源码已整理为独立 Git 仓库，可推送到你选择的新仓库；本机个人启动包保持独立。
+项目仓库：[lilhuu/Codex-Startup-Windows](https://github.com/lilhuu/Codex-Startup-Windows)。本机个人启动包保持独立。
 
 ## 来源与授权说明
 
