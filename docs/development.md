@@ -39,3 +39,5 @@ node tools/windows.smoke.mjs <端口> docs/screenshots <测试GIF路径> <诊断
 GitHub 工作流仅构建和上传测试产物，不自动发布 Release，不含访问令牌。
 
 C# 源码使用 UTF-8，构建和测试显式传入 `/codepage:65001`。不要依赖系统默认 ANSI 编码，否则英文 Windows 环境可能把中文快捷方式名称与路径解码成无效字符。安装集成测试覆盖中文目录和设置快捷方式，可用于验证此问题。
+
+快捷方式通过 Windows 原生 Unicode `IShellLinkW` 与 `IPersistFile` 创建和读取，不使用旧脚本接口设置目标。集成检查包含中文、空格及 Emoji 目录，避免用户名和系统语言不同导致安装失败。接口参考：[IShellLinkW](https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishelllinkw)、[IPersistFile::Save](https://learn.microsoft.com/en-us/windows/win32/api/objidl/nf-objidl-ipersistfile-save)。

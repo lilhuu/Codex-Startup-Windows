@@ -11,12 +11,10 @@ public static class InstallIntegration {
  public static string Desktop {get{return Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);}}
  public static string Menu {get{return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs),"Codex Startup Windows");}}
  static string[] Names={"Codex Startup Windows.lnk","Codex Startup Windows 设置.lnk"};
- static bool Owned(dynamic link,string target,bool settings){return String.Equals((string)link.TargetPath,target,StringComparison.OrdinalIgnoreCase)&&(string)link.Arguments==(settings?"--settings":"")&&String.Equals((string)link.WorkingDirectory,Path.GetDirectoryName(target),StringComparison.OrdinalIgnoreCase)&&String.Equals((string)link.IconLocation,target+",0",StringComparison.OrdinalIgnoreCase)&&String.IsNullOrEmpty((string)link.Hotkey);}
+ static bool Owned(ShellShortcut link,string target,bool settings){return String.Equals(link.TargetPath,target,StringComparison.OrdinalIgnoreCase)&&link.Arguments==(settings?"--settings":"")&&String.Equals(link.WorkingDirectory,Path.GetDirectoryName(target),StringComparison.OrdinalIgnoreCase)&&String.Equals(link.IconLocation,target+",0",StringComparison.OrdinalIgnoreCase)&&link.Hotkey==0;}
  static void Shortcut(string file,string target,bool settings){
   Directory.CreateDirectory(Path.GetDirectoryName(file));
-  dynamic shell=Activator.CreateInstance(Type.GetTypeFromProgID("WScript.Shell"));dynamic link=null;
-  try{
-   link=shell.CreateShortcut(file);
+  using(var link=new ShellShortcut(file)){
    if(File.Exists(file)&&!String.Equals((string)link.TargetPath,target,StringComparison.OrdinalIgnoreCase))throw new IOException("已有同名快捷方式指向其他程序："+file);
    if(File.Exists(file)&&!Owned(link,target,settings))return;
    link.TargetPath=target;
@@ -25,7 +23,7 @@ public static class InstallIntegration {
    link.IconLocation=target+",0";
    link.Description=settings?"选择头像、背景图片、动图和启动文字":"启动官方 Codex 并播放自定义动画";
    link.Save();
-  }finally{if(link!=null)Marshal.FinalReleaseComObject(link);Marshal.FinalReleaseComObject(shell);}
+  }
  }
  static void RegisterUnsafe(string root,string desktop,string menu,string registryPath,Action<string> beforeWrite){
   string target=Path.Combine(root,"CodexStartup.exe");string setup=Path.Combine(root,"CodexStartupSetup.exe");
@@ -62,8 +60,7 @@ public static class InstallIntegration {
   foreach(string directory in new[]{desktop,menu})for(int i=0;i<Names.Length;i++){
    string name=Names[i];
    string file=Path.Combine(directory,name);if(!File.Exists(file))continue;
-   dynamic shell=Activator.CreateInstance(Type.GetTypeFromProgID("WScript.Shell"));dynamic link=null;
-   try{link=shell.CreateShortcut(file);if(Owned(link,target,i==1))File.Delete(file);}finally{if(link!=null)Marshal.FinalReleaseComObject(link);Marshal.FinalReleaseComObject(shell);}
+   using(var link=new ShellShortcut(file)){if(Owned(link,target,i==1))File.Delete(file);}
   }
   if(Directory.Exists(menu)&&Directory.GetFileSystemEntries(menu).Length==0)Directory.Delete(menu);
   using(var key=Registry.CurrentUser.OpenSubKey(registryPath)){if(key!=null&&!String.Equals((string)key.GetValue("InstallLocation"),root,StringComparison.OrdinalIgnoreCase))throw new IOException("卸载注册信息属于其他安装位置。");}
